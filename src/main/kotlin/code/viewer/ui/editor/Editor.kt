@@ -17,6 +17,7 @@ class Editor(
 
     lateinit var selection: SingleSelection
 
+    // 今このファイルオブジェクトが選択されているかどうかの判定
     val isActive: Boolean
         get() = selection.selected === this
 

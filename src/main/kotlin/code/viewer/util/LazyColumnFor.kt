@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+// sizeの分だけ行を作って返却するコンポーネント
 @Composable
 fun LazyColumnFor(
     size: Int,
@@ -25,6 +26,7 @@ fun LazyColumnFor(
     contentPadding = contentPadding,
     horizontalAlignment = horizontalAlignment,
 ) { index, _ ->
+    // indexを取得できる
     itemContent(index)
 }
 

@@ -3,10 +3,7 @@ package code.viewer.ui.editor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.AmbientContentColor
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
@@ -82,7 +79,8 @@ private fun Lines(lines: Editor.Lines, settings: Settings) = with(AmbientDensity
             modifier = Modifier.fillMaxSize(),
             state = scrollState,
             itemContent = { index ->
-                val line: Editor.Line? by loadable { lines.get(index) }
+                // 行ごとの描画内容
+                val line: Editor.Line? by loadable { lines[index] }
                 Box(Modifier.height(lineHeight)) {
                     if (line != null) {
                         Line(Modifier.align(Alignment.CenterStart), maxNumber, line!!, settings)
@@ -117,6 +115,7 @@ private fun Line(modifier: Modifier, maxNum: String, line: Editor.Line, settings
     }
 }
 
+// エディター左端の行番号の部分
 @Composable
 private fun LineNumber(number: String, modifier: Modifier, settings: Settings) = Text(
     text = number,
@@ -126,6 +125,7 @@ private fun LineNumber(number: String, modifier: Modifier, settings: Settings) =
     modifier = modifier.padding(start = 12.dp)
 )
 
+// 行の本文
 @Composable
 private fun LineContent(content: Editor.Content, modifier: Modifier, settings: Settings) = Text(
     text = if (content.isCode) {
@@ -143,6 +143,7 @@ private fun LineContent(content: Editor.Content, modifier: Modifier, settings: S
     softWrap = false
 )
 
+// 特定文字のハイライト的な
 private fun codeString(str: String) = buildAnnotatedString {
     withStyle(AppTheme.code.simple) {
         append(str.replace("\t", "    "))

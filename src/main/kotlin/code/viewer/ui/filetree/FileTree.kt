@@ -36,6 +36,7 @@ class FileTree(root: File, private val editors: Editors) {
 
     val items: List<Item> get() = expandedRoot.toItems()
 
+    // 各ファイルの属するクラス
     inner class Item constructor(
         private val file: ExpandableFile
     ) {
@@ -48,6 +49,8 @@ class FileTree(root: File, private val editors: Editors) {
                 ItemType.File(ext = file.file.name.substringAfterLast(".").toLowerCase())
             }
 
+        //ファイルを選択した時、
+        //ディレクトリは中身を展開、ファイルはファイルを開くときのイベントを発火(Editors.openにつながる)
         fun open() = when (type) {
             is ItemType.Folder -> file.toggleExpanded()
             is ItemType.File -> editors.open(file.file)

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import code.viewer.ui.AppTheme
 
+// 選択したファイルの数だけTabを描画する
 @Composable
 fun EditorTabsView(model: Editors) = ScrollableRow {
     for (editor in model.editors) {
@@ -28,9 +29,12 @@ fun EditorTabsView(model: Editors) = ScrollableRow {
     }
 }
 
+// 1Tabの描画内容
 @Composable
 fun EditorTabView(model: Editor) = Surface(
+    // animate:色の変更を管理する為の関数？
     color = animate(
+        // Modifier.clickableの処理と連動して、アクティブなタブの色を変化させる
         if (model.isActive) {
             AppTheme.colors.backgroundDark
         } else {
@@ -45,6 +49,7 @@ fun EditorTabView(model: Editor) = Surface(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
+        // タブに表示されるファイル名
         Text(
             model.fileName,
             color = AmbientContentColor.current,
@@ -52,10 +57,10 @@ fun EditorTabView(model: Editor) = Surface(
             modifier = Modifier.padding(horizontal = 4.dp)
         )
 
-
         val close = model.close
 
         if (close != null) {
+            // 閉じる×ボタンのアイコン
             Icon(
                 Icons.Default.Close, tint = AmbientContentColor.current, modifier = Modifier
                     .size(24.dp)
