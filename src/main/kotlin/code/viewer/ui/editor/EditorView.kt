@@ -42,6 +42,7 @@ fun EditorView(model: Editor, settings: Settings) = key(model) {
                 if (lines != null) {
                     Box {
                         Lines(lines!!, settings)
+                        // エディター右側部分
                         Box(
                             Modifier
                                 .offset(
@@ -66,6 +67,8 @@ fun EditorView(model: Editor, settings: Settings) = key(model) {
 
 @Composable
 private fun Lines(lines: Editor.Lines, settings: Settings) = with(AmbientDensity.current) {
+
+    // ファイルの行数からそのファイルが最大何桁表示するのかを計算
     val maxNumber = remember(lines.lineNumberDigitCount) {
         (1..lines.lineNumberDigitCount).joinToString(separator = "") { "9" }
     }
@@ -104,7 +107,9 @@ private fun Line(modifier: Modifier, maxNum: String, line: Editor.Line, settings
     Row(modifier = modifier) {
         DisableSelection {
             Box {
+                // 1個目 spaceのパディング的な、透明な文字を左詰に入れている(999とか)
                 LineNumber(maxNum, Modifier.alpha(0f), settings)
+                // 2個目 行番号を右端詰で表示する
                 LineNumber(line.number.toString(), Modifier.align(Alignment.CenterEnd), settings)
             }
         }
