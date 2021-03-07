@@ -39,7 +39,7 @@ compose.desktop {
         mainClass = "code.viewer.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "CodeViewer"
+            packageName = "CloneCodeViewer"
         }
     }
 }
