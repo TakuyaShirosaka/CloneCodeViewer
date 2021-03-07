@@ -31,5 +31,5 @@ fun LazyColumnFor(
 }
 
 private class UnitList(override val size: Int) : AbstractList<Unit>() {
-    override fun get(index: Int) = Unit
+    override fun get(index: Int) = run{}
 }
